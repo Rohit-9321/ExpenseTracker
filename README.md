@@ -1,70 +1,219 @@
 # Ledger — Personal Expense Tracker (MERN)
 
-A full-stack expense tracker built with MongoDB, Express, React (Vite), and Node.js.
-Add expenses, view them in a running ledger, see your total spend, and delete entries.
+A full-stack expense tracker built with **MongoDB, Express, React (Vite), and Node.js**.
 
-## Project structure
+Users can:
+- Add expenses
+- View all expenses in a ledger
+- See the total amount spent
+- Delete expenses
 
-```
+---
+
+# Project Structure
+
+```text
 expense-tracker/
 ├── backend/     Express + MongoDB REST API
 └── frontend/    React (Vite) client
 ```
 
-## Requirements
+---
+
+# Requirements
 
 - Node.js 18+
-- A MongoDB connection (local `mongod` or a MongoDB Atlas cluster)
+- MongoDB Atlas (or local MongoDB)
 
-## 1. Backend setup
+---
+
+# Backend Setup
 
 ```bash
 cd backend
 npm install
-cp .env.example .env   # edit MONGO_URI if you're using Atlas
-npm run dev             # starts the API on http://localhost:5000
+cp .env.example .env
+npm run dev
 ```
 
-Environment variables (`backend/.env`):
+Runs on:
 
-| Variable   | Description                        | Default                                       |
-|------------|-------------------------------------|------------------------------------------------|
-| `PORT`     | Port the API listens on             | `5000`                                          |
-| `MONGO_URI`| MongoDB connection string           | `mongodb://127.0.0.1:27017/expense-tracker`     |
+```
+http://localhost:5000
+```
 
-### API endpoints
+## Backend Environment Variables
 
-| Method | Route              | Description        |
-|--------|---------------------|---------------------|
-| GET    | `/api/expenses`      | Get all expenses (with `total` and `count`) |
-| POST   | `/api/expenses`      | Add a new expense (`amount`, `description`, `category`, `date`) |
-| DELETE | `/api/expenses/:id`  | Delete an expense by id |
+Create a `.env` file inside the **backend** folder.
 
-## 2. Frontend setup
+| Variable | Description | Example |
+|----------|-------------|---------|
+| PORT | Server port | 5000 |
+| MONGO_URI | MongoDB Atlas connection string | mongodb+srv://... |
+| CLIENT_URL | Frontend URL (for CORS) | http://localhost:5173 (development) / https://your-frontend.onrender.com (production) |
+| NODE_ENV | Environment | development / production |
+
+Example:
+
+```env
+PORT=5000
+MONGO_URI=mongodb+srv://<username>:<password>@cluster.mongodb.net/expense-tracker
+CLIENT_URL=http://localhost:5173
+NODE_ENV=development
+```
+
+---
+
+# API Endpoints
+
+| Method | Endpoint | Description |
+|---------|----------|-------------|
+| GET | `/api/expenses` | Get all expenses |
+| POST | `/api/expenses` | Create a new expense |
+| DELETE | `/api/expenses/:id` | Delete an expense |
+
+---
+
+# Frontend Setup
 
 ```bash
 cd frontend
 npm install
-cp .env.example .env   # points the app at the API above
-npm run dev             # starts the app on http://localhost:5173
+cp .env.example .env
+npm run dev
 ```
 
-Environment variables (`frontend/.env`):
+Runs on:
 
-| Variable       | Description               | Default                                   |
-|----------------|-----------------------------|--------------------------------------------|
-| `VITE_API_URL` | Base URL for the expenses API | `http://localhost:5000/api/expenses`     |
+```
+http://localhost:5173
+```
 
-## 3. Using the app
+## Frontend Environment Variables
 
-1. Start the backend, then the frontend (in two terminals).
-2. Open `http://localhost:5173`.
-3. Fill in the **New expense** form and click **Add expense**.
-4. Your entries appear in the ledger on the right, with a running total at the top.
-5. Click **Delete** on any row to remove it.
+Create a `.env` file inside the **frontend** folder.
 
-## Tech stack
+| Variable | Description | Example |
+|----------|-------------|---------|
+| VITE_API_URL | Backend Base URL | http://localhost:5000 (development) / https://your-backend.onrender.com (production) |
 
-- **Frontend:** React 18, Vite, Axios
-- **Backend:** Node.js, Express, Mongoose
-- **Database:** MongoDB
+Example (Development)
+
+```env
+VITE_API_URL=http://localhost:5000
+```
+
+Example (Production)
+
+```env
+VITE_API_URL=https://your-backend.onrender.com
+```
+
+> **Note:** The frontend automatically appends `/api/expenses`, so **do not** include `/api/expenses` in `VITE_API_URL`.
+
+---
+
+# Running the Project
+
+### Start Backend
+
+```bash
+cd backend
+npm install
+npm run dev
+```
+
+### Start Frontend
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Open:
+
+```
+http://localhost:5173
+```
+
+---
+
+# Deployment (Render)
+
+## Backend (Web Service)
+
+Environment Variables
+
+```env
+MONGO_URI=your_mongodb_connection_string
+CLIENT_URL=https://your-frontend.onrender.com
+NODE_ENV=production
+```
+
+Build Command
+
+```bash
+npm install
+```
+
+Start Command
+
+```bash
+npm start
+```
+
+---
+
+## Frontend (Static Site)
+
+Environment Variables
+
+```env
+VITE_API_URL=https://your-backend.onrender.com
+```
+
+Build Command
+
+```bash
+npm install && npm run build
+```
+
+Publish Directory
+
+```text
+dist
+```
+
+---
+
+# Tech Stack
+
+### Frontend
+
+- React 18
+- Vite
+- Axios
+
+### Backend
+
+- Node.js
+- Express.js
+- Mongoose
+
+### Database
+
+- MongoDB Atlas
+
+---
+
+# Features
+
+- Add Expenses
+- Delete Expenses
+- Total Expense Calculation
+- Expense Categories
+- Responsive UI
+- REST API
+- MongoDB Integration
+- Render Deployment Ready
